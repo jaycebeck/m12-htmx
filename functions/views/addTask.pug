@@ -1,0 +1,23 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Add New Task
+
+  body
+    form(hx-post='http://localhost:5001/m12calendar-htmx-79475/us-central1/addTask' hx-trigger='submit' class='w-full max-w-sm')
+      label(for="title") Task Title:
+      input(type="text", id="title", name="title", required, class='px-2 py-1 border rounded m-2')
+      br
+      label(for="description") Description:
+      input(type="text", id="description", name="description", required, class='px-2 py-1 border rounded m-2')
+      br
+      label(for="dueDate") Due Date:
+      input(type="date", id="dueDate", name="dueDate", required, class='px-2 py-1 border rounded m-2')
+      br
+      div(class='row')
+        div(class='column')
+            button(type="submit", class="bg-slate-500 text-white font-bold py-1 px-2 rounded hover:bg-slate-700") Add Task
+        div(class='column')
+            button( class="bg-slate-500 text-white font-bold py-1 px-2 rounded hover:bg-slate-700" type="button" hx-get='http://localhost:5001/m12calendar-htmx-79475/us-central1/blankDiv' hx-trigger='click' hx-target="#addTaskForm") Cancel

@@ -1,0 +1,74 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+table.table-fixed.border-separate.border-spacing-2.flex(class='text-gray text-xl')
+  td
+    button(onclick='prevMonth()' class="rounded hover:bg-slate-500 bg-slate-100") <
+  td 
+    div#monthYear(class='text-2xl font-bold p-4')
+  td
+    button(onclick='nextMonth()' class="rounded hover:bg-slate-500 bg-slate-100") >
+table#calendar(cellspacing='21' cellpadding='21' style='text-align: center;' class='text-center text-white bg-slate-800')
+  thead
+    tr.border-b(class='bg-slate-500 text-white')
+      th Sun
+      th Mon
+      th Tue
+      th Wed
+      th Thu
+      th Fri
+      th Sat
+  tbody#calendarBody
+script.
+  let currentMonth;
+  let currentYear;
+  function generateCalendar(month, year) {
+  currentMonth = month;
+  currentYear = year;
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const daysInMonth = lastDay.getDate();
+  const startingDay = firstDay.getDay();
+  const monthYearString = new Date(year, month).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  document.getElementById('monthYear').innerText = monthYearString;
+  const calendarBody = document.getElementById('calendarBody');
+  calendarBody.innerHTML = '';
+  let day = 1;
+  for (let i = 0; i < 6; i++) {
+  const row = document.createElement('tr');
+  for (let j = 0; j < 7; j++) {
+  if (i === 0 && j < startingDay) {
+  const cell = document.createElement('td');
+  row.appendChild(cell);
+  } else if (day > daysInMonth) {
+  break;
+  } else {
+  const cell = document.createElement('td');
+  cell.innerText = day;
+  row.appendChild(cell);
+  day++;
+  }
+  }
+  calendarBody.appendChild(row);
+  }
+  }
+  function prevMonth() {
+  currentMonth--;
+  if (currentMonth < 0) {
+  currentMonth = 11;
+  currentYear--;
+  }
+  generateCalendar(currentMonth, currentYear);
+  }
+  function nextMonth() {
+  currentMonth++;
+  if (currentMonth > 11) {
+  currentMonth = 0;
+  currentYear++;
+  }
+  generateCalendar(currentMonth, currentYear);
+  }
+  // Initialize with the current month and year
+  const today = new Date();
+  generateCalendar(today.getMonth(), today.getFullYear());
