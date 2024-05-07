@@ -74,6 +74,20 @@ exports.addTaskForm = onRequest((req, res) => {
     res.send(addTaskFormHtml);
 });
 
+exports.getTaskDates = onRequest(async (req, res) => {
+    const snapshot = await db.collection("tasks").get();
+    const tasks = snapshot.docs.map(doc => {
+        const data = doc.data();
+        return { id: doc.id, ...data };
+    });
+
+    // Get the due dates of all tasks
+    const taskDates = tasks.map(task => task.dueDate);
+
+    // Send task dates as response
+    res.send(taskDates);
+});
+
 exports.getTasks = onRequest(async (req, res) => {
     const snapshot = await db.collection("tasks").get();
     const tasks = snapshot.docs.map(doc => {
