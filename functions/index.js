@@ -20,14 +20,14 @@ const admin = require("firebase-admin");
 //   response.send("Hello from Firebase!");
 // });
 
-exports.home = onRequest((request, response) => {
+exports.home = onRequest({ cors: true },(request, response) => {
     let template = pug.compileFile("views/home.pug");
     let html = template({title: "Home"});
     response.writeHead(200, {"Content-Type": "text/html"});
     response.end(html);
 });
 
-exports.calendar = onRequest((req, res) => {
+exports.calendar = onRequest({ cors: true },(req, res) => {
     const { month, year } = req.query;
 
     // Generate calendar HTML using Pug template
@@ -38,7 +38,7 @@ exports.calendar = onRequest((req, res) => {
     res.send(calendarHtml);
 });
 
-exports.tasks = onRequest((req, res) => {
+exports.tasks = onRequest({ cors: true },(req, res) => {
 
     // Generate tasks HTML using Pug template
     const compiledFunction = pug.compileFile("views/tasks.pug");
@@ -55,7 +55,7 @@ admin.initializeApp();
 const db = admin.firestore();
 
 // Your code to interact with the database goes here
-exports.addTask = onRequest(async (req, res) => {
+exports.addTask = onRequest({ cors: true },async (req, res) => {
     const { title, description, dueDate } = req.body;
 
     // Add task to the database
@@ -65,7 +65,7 @@ exports.addTask = onRequest(async (req, res) => {
     res.send("<div></div>");
 });
 
-exports.addTaskForm = onRequest((req, res) => {
+exports.addTaskForm = onRequest({ cors: true },(req, res) => {
     // Generate add task form HTML using Pug template
     const compiledFunction = pug.compileFile("views/addTask.pug");
     const addTaskFormHtml = compiledFunction();
@@ -74,7 +74,7 @@ exports.addTaskForm = onRequest((req, res) => {
     res.send(addTaskFormHtml);
 });
 
-exports.getTaskDates = onRequest(async (req, res) => {
+exports.getTaskDates = onRequest({ cors: true },async (req, res) => {
     const snapshot = await db.collection("tasks").get();
     const tasks = snapshot.docs.map(doc => {
         const data = doc.data();
@@ -88,7 +88,7 @@ exports.getTaskDates = onRequest(async (req, res) => {
     res.send(taskDates);
 });
 
-exports.getTasks = onRequest(async (req, res) => {
+exports.getTasks = onRequest({ cors: true },async (req, res) => {
     const snapshot = await db.collection("tasks").get();
     const tasks = snapshot.docs.map(doc => {
         const data = doc.data();
@@ -103,7 +103,7 @@ exports.getTasks = onRequest(async (req, res) => {
     res.send(tasksHtml);
 });
 
-exports.editTaskForm = onRequest(async (req, res) => {
+exports.editTaskForm = onRequest({ cors: true },async (req, res) => {
     const { id } = req.query;
 
     // Get task from the database
@@ -118,7 +118,7 @@ exports.editTaskForm = onRequest(async (req, res) => {
     res.send(editTaskFormHtml);
 });
 
-exports.updateTask = onRequest(async (req, res) => {
+exports.updateTask = onRequest({ cors: true },async (req, res) => {
     const { id, title, description, dueDate } = req.body;
 
     // Update task in the database
@@ -128,7 +128,7 @@ exports.updateTask = onRequest(async (req, res) => {
     res.send("<div></div>");
 });
 
-exports.deleteTask = onRequest(async (req, res) => {
+exports.deleteTask = onRequest({ cors: true },async (req, res) => {
     const { id } = req.query;
 
     // Delete task from the database
@@ -138,6 +138,6 @@ exports.deleteTask = onRequest(async (req, res) => {
     res.send("Task deleted successfully!");
 });
 
-exports.blankDiv = onRequest((req, res) => {
+exports.blankDiv = onRequest({ cors: true },(req, res) => {
     res.send("<div></div>");
 });

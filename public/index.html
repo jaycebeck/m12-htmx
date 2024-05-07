@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>M12 Calendar HTMX</title>
+  <title>M12 Calendar</title>
 
   <!-- update the version number as needed -->
   <script defer src="/__/firebase/10.11.1/firebase-app-compat.js"></script>
@@ -53,19 +53,18 @@
       </table>
     </div>
     <div class="row">
-      <div class="column ml-4"
-        hx-get="http://localhost:5001/m12calendar-htmx-79475/us-central1/calendar?month=4&year=2024" hx-trigger="load"
-        id="calendar"></div>
+      <div class="column ml-4" hx-get="https://calendar-hkfrkn445q-uc.a.run.app" hx-trigger="load" id="calendar"></div>
       <div class="column">
         <h1 class="text-2xl font-bold text-gray-900 dark:text-black pl-4">Tasks</h1>
         <div id="editTaskForm"></div>
-        <div class="relative sm:rounded-lg p-4 mr-4"
-          hx-get="http://localhost:5001/m12calendar-htmx-79475/us-central1/getTasks" hx-trigger="load, every 30s"
+        <div class="relative sm:rounded-lg p-4 mr-4" hx-get="https://gettasks-hkfrkn445q-uc.a.run.app" hx-trigger="load"
           id="getTasks">
         </div>
+        <p class="text-slate-800 pl-4">You will need to refresh the page after editing or deleting, I did not want to
+          run up the page with constant requests.</p>
         <button class="bg-slate-500 text-white font-bold py-1 px-2 rounded hover:bg-slate-700"
-          hx-get="http://localhost:5001/m12calendar-htmx-79475/us-central1/addTaskForm" hx-trigger="click"
-          hx-target="#addTaskForm" id="addNewTaskButton">Add a new
+          hx-get="https://addtaskform-hkfrkn445q-uc.a.run.app" hx-trigger="click" hx-target="#addTaskForm"
+          id="addNewTaskButton">Add a new
           Task</button>
         <div id="addTaskForm"></div>
       </div>

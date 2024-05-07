@@ -4,6 +4,7 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
 
+
   body
     table(class='w-full text-sm text-center text-white border p-8 rounded-md')
       thead(class='text-xs text-white uppercase bg-gray-50 dark:bg-gray-700')
@@ -21,6 +22,6 @@ html(lang="en")
             td= task.dueDate
             td
               //- Button to toggle editing mode
-              button(type="button", class="bg-slate-500 text-white font-bold py-1 px-2 rounded hover:bg-slate-700", hx-get="http://localhost:5001/m12calendar-htmx-79475/us-central1/editTaskForm?id="+task.id hx-trigger="click"
+              button(type="button", class="bg-slate-500 text-white font-bold py-1 px-2 rounded hover:bg-slate-700", hx-get="https://edittaskform-hkfrkn445q-uc.a.run.app?id="+task.id hx-trigger="click"
           hx-target="#editTaskForm") Edit
-              button(hx-delete='http://localhost:5001/m12calendar-htmx-79475/us-central1/deleteTask?id='+task.id hx-trigger='click' class='bg-slate-500 text-white font-bold py-1 px-2 rounded hover:bg-slate-700') Delete
+              button(hx-delete='https://deletetask-hkfrkn445q-uc.a.run.app?id='+task.id hx-trigger='click' class='bg-slate-500 text-white font-bold py-1 px-2 rounded hover:bg-slate-700') Delete

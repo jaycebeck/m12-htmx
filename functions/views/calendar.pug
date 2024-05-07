@@ -28,7 +28,7 @@ script.
     currentMonth = month;
     currentYear = year;
     try {
-      const response = await fetch('http://localhost:5001/m12calendar-htmx-79475/us-central1/getTaskDates');
+      const response = await fetch('https://gettaskdates-hkfrkn445q-uc.a.run.app');
       
       if (!response.ok) {
         throw new Error('Failed to fetch highlighted dates');
